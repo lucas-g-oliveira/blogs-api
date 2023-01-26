@@ -4,9 +4,8 @@ const UserModel = (sequelize, Datatypes) => {
     email: Datatypes.STRING,
     password: Datatypes.STRING,
     image: Datatypes.STRING,
-  },{
-    tableName: "users",
-  });
+  },{}
+  );
 
   return User;
 }
