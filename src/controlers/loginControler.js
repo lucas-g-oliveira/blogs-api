@@ -1,4 +1,4 @@
-const login = async (_req, res) => res
-.status(200).send('postLogin não implementado');
+const login = async (req, res) =>
+  res.status(200).json({ message: 'postLogin não implementado', data: req.body });
 
 module.exports = { login };

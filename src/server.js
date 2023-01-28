@@ -5,7 +5,7 @@ const app = require('./app');
 
 const routes = require('./routes');
 
-app.use(express.json);
+app.use(express.json());
 
 app.use('/login', routes.login);
 app.use('/user', routes.user);
