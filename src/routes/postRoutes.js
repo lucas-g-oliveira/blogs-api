@@ -1,15 +1,25 @@
 const express = require('express');
-const { postControler } = require('../controlers');
 
 const route = express.Router();
 
-route.get('/', postControler.getAllPost);
+const { validatePost } = require('../controlers/middlewares');
+const { postControler } = require('../controlers');
 
-route.get('/:id', postControler.getPostById);
+route.get('/',
+  postControler.getAllPost); // NN
 
-route.post('/', postControler.addPost);
+route.get('/:id',
+  validatePost.postIdValidator,
+  postControler.getPostById); // ID
 
-route.put('/:id', postControler.setPostById);
+route.post('/',
+  validatePost.addPost,
+  postControler.addPost);
+
+route.put('/:id',
+  validatePost.postIdValidator,
+  validatePost.setPost,
+  postControler.setPostById);
 
 route.delete('/:id', postControler.deletePostById);
 

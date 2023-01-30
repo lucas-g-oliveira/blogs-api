@@ -1,10 +1,11 @@
 const express = require('express');
-const { categoryControler } = require('../controlers');
+const { loginControler } = require('../controlers');
+const { validateLogin } = require('../controlers/middlewares');
 
 const route = express.Router();
 
-route.get('/', categoryControler.getAllCategories);
+/* route.get('/', loginControler.login); */
 
-route.post('/', categoryControler.addNewCategory);
+route.post('/', validateLogin.loginValidate, loginControler.login);
 
 module.exports = route;

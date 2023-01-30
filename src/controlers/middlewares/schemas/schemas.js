@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
+const emailRegex = /\S+@\S+\.\S+/;
 
 // POST login
 const login = Joi.object().keys({
@@ -19,14 +19,17 @@ const addPost = Joi.object().keys({
 });
 
 // PUT post
-const setPost = Joi.object().keys({});
+const setPost = Joi.object().keys({
+  title: Joi.string().min(8).required(),
+  content: Joi.string().min(8).required(),
+});
 
 // POST User
 const addUser = Joi.object().keys({
   displayName: Joi.string().min(8).required(),
   email: Joi.string().regex(emailRegex).required(),
   password: Joi.string().min(6).required(),
-  image: null,
+  image: Joi.string().min(8),
 });
 
 // POST category
