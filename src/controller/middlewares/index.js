@@ -8,13 +8,13 @@ const BAD_REQUEST = 400;
 return res.status(status).json({ message });
   }; */
 
-const token = async (req, res, next) => {
-  const result = await decript(req.headers);
-  if (result.error) {
-    return res.status(401).json({ message: result.error.message });
+const token = (req, res, next) => {
+  const { data, error } = decript(req.headers);
+  if (error) {
+    return res.status(401).json(error);
   }
-  req.authenticate = result;
-  next();
+  req.headers.auth = data;
+  return next();
 };
 
 const userIdValidate = (req, res, next) => {
@@ -52,7 +52,7 @@ const loginValidate = (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(BAD_REQUEST)
-    .json({ message: 'Some required fields are missing' });
+      .json({ message: 'Some required fields are missing' });
   }
   const { error } = schemas.login.validate(req.body);
   if (!error) return next();

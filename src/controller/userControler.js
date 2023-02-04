@@ -2,9 +2,14 @@ const { encript } = require('../jwtUtils');
 const users = require('../service/userService');
 
 const getAllUsers = async (req, res) => {
-  const data = await users.getAllUsers();
-  console.log(data);
-  res.status(200).json({ message: 'getAllUsers não implementado' });
+  const allUsers = await users.getAllUsers();
+  const withoutPassword = allUsers.map((e) => ({
+    id: e.id,
+    displayName: e.displayName,
+    email: e.email,
+    image: e.image,
+  }));
+  res.status(200).json(withoutPassword);
 };
 
 const getUserById = async (req, res) =>

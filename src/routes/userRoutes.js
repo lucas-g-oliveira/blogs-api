@@ -1,15 +1,15 @@
 const express = require('express');
 const { userControler } = require('../controller');
-/* const midd = require('../controller/middlewares'); */
+const midd = require('../controller/middlewares');
 
 const route = express.Router();
 
 route.get('/',
-/* midd.token, */
+midd.token,
 userControler.getAllUsers);
 
 route.get('/:id',
-/* midd.token, */
+midd.token,
 userControler.getUserById);
 
 route.post('/',

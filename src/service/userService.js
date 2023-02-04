@@ -3,21 +3,13 @@ const { User } = require('../models');
 /* const objReturn = (data) => ({ status: null, message: data }); */
 
 const getAllUsers = async () => {
-  try {
-    const data = await User.findAll();
-    return data;
-  } catch (err) {
-    return err;
-  }
+  const data = await User.findAll();
+  return data;
 };
 
-const getById = async (id) => {
-  try {
-    const data = await User.findByPk(id);
-    return data;
-  } catch (err) {
-    return err;
-  }
+const getById = async (num) => {
+  const { id, displayName, email, image } = await User.findByPk(num);
+  return { id, displayName, email, image };
 };
 
 const checkCredentialsUser = async (email, password) => {

@@ -10,12 +10,12 @@ const decript = (auth) => {
   const token = auth.authorization;
 
   if (!token) {
-    return { error: { message: 'Token not found' } };
+    return { error: { message: 'Token not found' }, data: null };
   }
 
   try {
     const data = jwt.verify(token, secret);
-    return data.data;
+    return data;
   } catch (err) {
     return { error: { message: 'Expired or invalid token' } };
   }
