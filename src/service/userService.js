@@ -8,8 +8,12 @@ const getAllUsers = async () => {
 };
 
 const getById = async (num) => {
-  const { id, displayName, email, image } = await User.findByPk(num);
-  return { id, displayName, email, image };
+  const oneUser = await User.findByPk(num);
+  if (oneUser) {
+    const { id, displayName, email, image } = oneUser;
+    return { id, displayName, email, image };
+  }
+  return null;
 };
 
 const checkCredentialsUser = async (email, password) => {

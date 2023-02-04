@@ -12,8 +12,11 @@ const getAllUsers = async (req, res) => {
   res.status(200).json(withoutPassword);
 };
 
-const getUserById = async (req, res) =>
-  res.status(200).json({ message: 'getUsersById não implementado', data: req.param.id });
+const getUserById = async (req, res) => {
+  const oneUser = await users.getById(req.params.id);
+  if (!oneUser) return res.status(404).json({ message: 'User does not exist' });
+  res.status(200).json(oneUser);
+};
 
 const addUser = async (req, res) => {
   console.log('op da service de chamar a model que adiciona');
