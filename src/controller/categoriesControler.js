@@ -1,7 +1,13 @@
-const getAllCategories = async (req, res) =>
-  res.status(200).json({ message: 'getCategories não implementado' });
+const { getAll, getById } = require('../service/categoryService');
 
-const addNewCategory = async (_req, res) =>
-  res.status(200).json({ message: 'postCategories não implementado' });
+const getAllCategories = async (req, res) => {
+  const getCategories = await getAll();
+  res.status(200).json(getCategories);
+};
 
-module.exports = { getAllCategories, addNewCategory };
+const getOneById = async (_req, res) => {
+  const getCategory = await getById();
+  res.status(200).json(getCategory);
+};
+
+module.exports = { getAllCategories, getOneById };
