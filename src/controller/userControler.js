@@ -1,7 +1,11 @@
 const { encript } = require('../jwtUtils');
+const users = require('../service/userService');
 
-const getAllUsers = async (_req, res) =>
+const getAllUsers = async (req, res) => {
+  const data = await users.getAllUsers();
+  console.log(data);
   res.status(200).json({ message: 'getAllUsers não implementado' });
+};
 
 const getUserById = async (req, res) =>
   res.status(200).json({ message: 'getUsersById não implementado', data: req.param.id });

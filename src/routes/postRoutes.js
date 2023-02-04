@@ -2,25 +2,33 @@ const express = require('express');
 
 const route = express.Router();
 
-const { validatePost } = require('../controlers/middlewares');
-const { postControler } = require('../controlers');
+const { postControler } = require('../controller');
+
+/* const midd = require('../controller/middlewares'); */
 
 route.get('/',
-  postControler.getAllPost); // NN
+/*   midd.token, */
+  postControler.getAllPost);
 
 route.get('/:id',
-  validatePost.postIdValidator,
-  postControler.getPostById); // ID
+/*   midd.token, */
+  postControler.getPostById);
 
 route.post('/',
-  validatePost.addPost,
+ /*  midd.token,
+  midd.validTitlePost,
+  midd.validCategIdPost,
+  midd.validContentPost, */
   postControler.addPost);
 
 route.put('/:id',
-  validatePost.postIdValidator,
-  validatePost.setPost,
+/*   midd.token,
+  midd.validTitlePost,
+  midd.validContentPost, */
   postControler.setPostById);
 
-route.delete('/:id', postControler.deletePostById);
+route.delete('/:id',
+ /*  midd.token, */
+  postControler.deletePostById);
 
 module.exports = route;
