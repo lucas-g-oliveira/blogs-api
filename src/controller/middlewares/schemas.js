@@ -31,7 +31,7 @@ const addUser = Joi.object().keys({
 
 // POST category
 const addCategory = Joi.object().keys({
-  name: Joi.string().min(8).required(),
+  name: Joi.string().required(),
 });
 
 module.exports = { login, addUser, addPost, addCategory, idValidate, setPost };

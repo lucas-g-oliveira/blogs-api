@@ -7,7 +7,7 @@ module.exports = (sequelize, Datatypes) => {
         primaryKey: true,
         type: Datatypes.INTEGER,
       },
-      name: Datatypes.STRING
+      name: Datatypes.STRING,
     }, {
     timestamps: false,
     tableName: 'categories',

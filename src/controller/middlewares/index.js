@@ -59,6 +59,14 @@ const loginValidate = (req, res, next) => {
   return res.status(BAD_REQUEST).json({ message: 'Invalid fields' });
 };
 
+const addCategoryValidate = (req, res, next) => {
+  const { name } = req.body;
+  if (!name) return res.status(BAD_REQUEST).json({ message: '"name" is required' });
+  const { error } = schemas.addCategory.validate(req.body);
+  if (!error) return next();
+  return res.status(BAD_REQUEST).json({ message: error.message });
+};
+
 module.exports = {
   token,
   loginValidate,
@@ -67,4 +75,5 @@ module.exports = {
   postIdValidate,
   setPost,
   userIdValidate,
+  addCategoryValidate,
 };

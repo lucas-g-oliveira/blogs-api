@@ -8,9 +8,10 @@ route.get('/',
   midd.token,
   categoryControler.getAllCategories);
 
- /*  route.post('/',
+  route.post('/',
   midd.token,
-  categoryControler.getAllCategories); */
+  midd.addCategoryValidate,
+  categoryControler.addCategory);
 
   route.post('/:id',
   midd.token,
