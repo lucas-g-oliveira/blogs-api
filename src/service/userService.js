@@ -22,14 +22,22 @@ const checkCredentialsUser = async (email, password) => {
 };
 
 const addUser = async (obj) => {
+  const data = await User.findOne({ where: { email: obj.email } });
+  if (data) return null;
   try {
     await User.create(obj);
-    const data = await User.findOne({ where: obj });
-    return data;
+    return obj.email;
   } catch (err) {
-    return err;
+    return err.message;
   }
 };
+
+/* const testFX = async () => {
+    const data = await User.findAll();
+  const result = await addUser('lewishamilton@gmail.com', '12345678');
+  console.log(result);
+};
+testFX(); */
 
 module.exports = {
   getAllUsers,

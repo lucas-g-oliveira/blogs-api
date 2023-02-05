@@ -26,7 +26,7 @@ const addUser = Joi.object().keys({
   displayName: Joi.string().min(8).required(),
   email: Joi.string().regex(emailRegex).required(),
   password: Joi.string().min(6).required(),
-  image: null,
+  image: Joi.string().min(6),
 });
 
 // POST category

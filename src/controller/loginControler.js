@@ -1,5 +1,5 @@
 const { encript } = require('../jwtUtils');
-const { /* getById, getAllUsers */ checkCredentialsUser } = require('../service/userService');
+const { checkCredentialsUser } = require('../service/userService');
 
 const login = async (req, res) => {
   const { email, password } = req.body;

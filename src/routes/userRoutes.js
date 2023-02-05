@@ -12,15 +12,13 @@ route.get('/:id',
 midd.token,
 userControler.getUserById);
 
+// aqui
 route.post('/',
-/* midd.validDysplayNameUser,
-midd.validEmail,
-midd.validPassword,
-midd.validImage, */
+midd.addUser,
 userControler.addUser);
 
 route.delete('/:id',
-/* midd.token, */
+midd.token,
 userControler.deleteUser);
 
 module.exports = route;
