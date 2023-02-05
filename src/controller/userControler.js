@@ -14,8 +14,8 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   const oneUser = await users.getById(req.params.id);
-  if (oneUser) return res.status(404).json({ message: 'User does not exist' });
-  res.status(200).json(oneUser);
+  if (!oneUser) return res.status(404).json({ message: 'User does not exist' });
+  return res.status(200).json(oneUser);
 };
 
 const addUser = async (req, res) => {
