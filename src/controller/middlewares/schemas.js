@@ -15,7 +15,7 @@ const idValidate = Joi.number().required();
 const addPost = Joi.object().keys({
   title: Joi.string().min(8).required(),
   content: Joi.string().min(8).required(),
-  categoryId: Joi.array().items(Joi.number().integer().min(1)).length(2).required(),
+  categoryIds: Joi.array().items(Joi.number().integer().min(1)).required(),
 });
 
 // PUT post

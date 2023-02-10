@@ -37,9 +37,14 @@ const postIdValidate = (req, res, next) => {
 };
 
 const addPost = (req, res, next) => {
-  const { error } = schemas.addPost(req.body);
+  const { title, content, categoryIds } = req.body;
+  const hasInvalid = [title, content, categoryIds].some((e) => !e);
+
+  if (hasInvalid) return res.status(400).json({ message: 'Some required fields are missing' });
+
+  const { error } = schemas.addPost.validate(req.body);
   if (!error) return next();
-  return res.status(BAD_REQUEST).json({ message: error.message });
+  return res.status(BAD_REQUEST).json({ message: error });
 };
 
 const setPost = (req, res, next) => {

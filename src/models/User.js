@@ -11,16 +11,18 @@ module.exports = (sequelize, Datatypes) => {
       email: Datatypes.STRING,
       password: Datatypes.STRING,
       image: Datatypes.STRING,
-    }, {
-    timestamps: false,
-    tableName: 'users',
-    underscored: true,
-  }
+    },
+    {
+      timestamps: false,
+      tableName: 'users',
+      underscored: true,
+      defaultScope: { attributes: { exclude: ['password'] } },
+    }
   );
 
   User.associate = (models) => {
     User.hasMany(models.BlogPost,
-      { foreignKey: 'id', as: 'user_id' });
+      { foreignKey: 'userId', as: 'categories' });
   }
 
   return User;

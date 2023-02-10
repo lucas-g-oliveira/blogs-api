@@ -5,12 +5,18 @@ module.exports = (sequelize, Datatypes) => {
       categoryId: {
         type: Datatypes.INTEGER,
         primayKey: true,
-        /* field: 'category_id', */
+        field: 'category_id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: { model: 'categories', key: 'id' },
       },
       postId: {
         type: Datatypes.INTEGER,
         primayKey: true,
-        /* field: 'post_id', */
+        field: 'post_id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: { model: 'blog_posts', key: 'id' }
       }
     },
     {
@@ -19,19 +25,19 @@ module.exports = (sequelize, Datatypes) => {
       tableName: 'posts_categories'
     });
 
-  PostCategory.associate = ({BlogPost, Category}) => {
+  PostCategory.associate = ({ BlogPost, Category }) => {
     Category.belongsToMany(BlogPost, {
+      as: 'blog_post',
+      through: PostCategory,
+      otherKey: 'category_id',
+      foreignKey: 'post_id',
+    });
+
+    BlogPost.belongsToMany(Category, {
       as: 'categories',
       through: PostCategory,
-      foreignKey: 'category_id',
       otherKey: 'post_id',
-    });
-    
-    BlogPost.belongsToMany(Category, {
-      as: 'blog_posts',
-      through: PostCategory,
-      foreignKey: 'post_id',
-      otherKey: 'category_id',
+      foreignKey: 'category_id',
     });
   };
 

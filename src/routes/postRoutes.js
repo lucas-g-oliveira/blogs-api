@@ -1,4 +1,5 @@
 const express = require('express');
+const midd = require('../controller/middlewares');
 
 const route = express.Router();
 
@@ -7,18 +8,16 @@ const { postControler } = require('../controller');
 /* const midd = require('../controller/middlewares'); */
 
 route.get('/',
-/*   midd.token, */
+  midd.token,
   postControler.getAllPost);
 
 route.get('/:id',
-/*   midd.token, */
+  midd.token,
   postControler.getPostById);
 
 route.post('/',
- /*  midd.token,
-  midd.validTitlePost,
-  midd.validCategIdPost,
-  midd.validContentPost, */
+  midd.token,
+  midd.addPost,
   postControler.addPost);
 
 route.put('/:id',
@@ -27,8 +26,8 @@ route.put('/:id',
   midd.validContentPost, */
   postControler.setPostById);
 
-route.delete('/:id',
- /*  midd.token, */
-  postControler.deletePostById);
+/* route.delete('/:id',
+  // midd.token,
+  postControler.deletePostById); */
 
 module.exports = route;
