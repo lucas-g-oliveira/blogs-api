@@ -6,7 +6,7 @@ const login = async (req, res) => {
   const user = await checkCredentialsUser(email, password);
 
   if (user) {
-    const token = encript({ email, iat: user.id });
+    const token = encript({ email });
     return res.status(200).json({ token });
   }
 

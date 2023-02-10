@@ -22,7 +22,7 @@ const addUser = async (req, res) => {
   const newUser = await users.addUser(req.body);
   if (!newUser) return res.status(409).json({ message: 'User already registered' });
   
-  return res.status(201).json({ token: encript({ email: req.body.email, iat: newUser.id }) });
+  return res.status(201).json({ token: encript({ email: req.body.email }) });
 };
 
 const deleteUser = async (req, res) =>

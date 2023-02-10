@@ -6,12 +6,8 @@ const secret = process.env.JWT_SECRET || 'CHAVE-ULTRA-SECRET4';
 
 const encript = (data) => jwt.sign(data, secret);
 
-const decript = (auth) => {
-  const token = auth.authorization;
-
-  if (!token) {
-    return { error: { message: 'Token not found' }, data: null };
-  }
+const decript = (token) => {
+  if (!token) return { error: { message: 'Token not found' }, data: null };
 
   try {
     const data = jwt.verify(token, secret);

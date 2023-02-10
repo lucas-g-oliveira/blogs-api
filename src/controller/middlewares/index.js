@@ -9,7 +9,7 @@ return res.status(status).json({ message });
   }; */
 
 const token = (req, res, next) => {
-  const { data, error } = decript(req.headers);
+  const { data, error } = decript(req.headers.authorization);
   if (error) {
     return res.status(401).json(error);
   }
