@@ -8,7 +8,8 @@ const getAllPost = async (_req, res) => {
 };
 
 const getPostById = async (req, res) => {
-  const data = await BlogPost.getByPk(req.params.id);
+  const data = await BlogPost.getPostById(req.params.id);
+  if (!data) return res.status(404).json({ message: 'Post does not exist' });
   if (data.error) return res.status(500).json({ message: 'server internal error' });
   return res.status(200).json(data);
 };

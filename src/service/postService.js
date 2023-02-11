@@ -39,14 +39,17 @@ const getAllPost = async () => {
 };
 
 const getPostById = async (idNumber) => {
-  const data = await BlogPost
-    .findByPk(idNumber, {
-      include: [
-        { model: User, as: 'user', atributes: { exclude: ['password'] } },
-        { model: Category, as: 'categories' },
-      ],
-    });
-  return data;
+  try {
+    const data = await BlogPost
+      .findByPk(idNumber, {
+        include: [
+          { model: User, as: 'user' },
+          { model: Category, as: 'categories' }],
+      });
+    return data;
+  } catch (err) {
+    return { error: true };
+  }
 };
 
 /* const delPost = async (idNumber) => {
