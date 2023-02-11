@@ -15,6 +15,7 @@ route.get('/',
 
   route.post('/:id',
   midd.token,
+  midd.addCategoryValidate,
   categoryControler.getOneById);
 
 module.exports = route;

@@ -14,8 +14,6 @@ const getById = async (num) => {
 };
 
 const addCateg = async (name) => {
-  const exists = await Category.findOne({ where: { name } });
-  if (exists) return null;
   try {
     await Category.create({ name });
     const getAgain = await await Category.findOne({ where: { name } });

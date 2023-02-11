@@ -7,16 +7,15 @@ const getAllPost = async (_req, res) => {
 };
 
 const getPostById = async (req, res) => {
-  const data = await BlogPost.getAllPost(req.params.id);
+  const data = await BlogPost.getByPk(req.params.id);
   return res.status(200).json({ message: data });
 };
 
 const addPost = async (req, res) => {
-  const auth = jwt.decript(req.headers);
-  console.log(auth);
-  const data = await BlogPost.addPost(auth.iat, req.body);
+  const auth = jwt.decript(req.headers.authorization);
+  const data = await BlogPost.addPost(auth.email, req.body);
   if (data.error) return res.status(400).json({ message: data.error });
-  return res.status(201).json(req.headers);
+  return res.status(201).json(data);
 };
 
 /* const deletePostById = async (req, res) => {
