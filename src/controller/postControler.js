@@ -3,14 +3,15 @@ const jwt = require('../jwtUtils');
 
 const getAllPost = async (_req, res) => {
   const data = await BlogPost.getAllPost();
-  return res.status(200).json({ message: data });
+  if (data.error) return res.status(500).json({ message: 'server internal error' });
+  return res.status(200).json(data);
 };
 
 const getPostById = async (req, res) => {
   const data = await BlogPost.getByPk(req.params.id);
-  return res.status(200).json({ message: data });
+  if (data.error) return res.status(500).json({ message: 'server internal error' });
+  return res.status(200).json(data);
 };
-
 const addPost = async (req, res) => {
   const auth = jwt.decript(req.headers.authorization);
   const data = await BlogPost.addPost(auth.email, req.body);

@@ -25,14 +25,17 @@ const addPost = async (email, obj) => {
 };
 
 const getAllPost = async () => {
-  const data = await BlogPost
-    .findAll({
-      include: [
-        { model: User, as: 'users' },
-        { model: Category, as: 'categories' },
-      ],
-    });
-  return data;
+  try {
+    const data = await BlogPost
+      .findAll({
+        include: [
+          { model: User, as: 'user' },
+          { model: Category, as: 'categories' }],
+      });
+    return data;
+  } catch (err) {
+    return { error: true };
+  }
 };
 
 const getPostById = async (idNumber) => {
