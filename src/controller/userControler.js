@@ -21,11 +21,14 @@ const getUserById = async (req, res) => {
 const addUser = async (req, res) => {
   const newUser = await users.addUser(req.body);
   if (!newUser) return res.status(409).json({ message: 'User already registered' });
-  
+
   return res.status(201).json({ token: encript({ email: req.body.email }) });
 };
 
-const deleteUser = async (req, res) =>
-  res.status(200).json({ message: 'deleteUsersById não implementado', data: req.param.id });
+const deleteUser = async (req, res) => {
+  const feedback = await users.deleteMe(req.headers);
+  if (feedback === 'OK') return res.status(204).send();
+  return res.status(500).json({ message: 'internal server error' });
+};
 
 module.exports = { getAllUsers, getUserById, addUser, deleteUser };

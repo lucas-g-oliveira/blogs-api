@@ -61,7 +61,6 @@ const getPostByQuery = async (word) => {
         ),
         include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }],
       },
-      /* { }, */
     );
 
     return data;

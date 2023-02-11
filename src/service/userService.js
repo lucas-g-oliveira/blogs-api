@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const jwt = require('../jwtUtils');
 
 /* const objReturn = (data) => ({ status: null, message: data }); */
 
@@ -32,16 +33,21 @@ const addUser = async (obj) => {
   }
 };
 
-/* const testFX = async () => {
-    const data = await User.findAll();
-  const result = await addUser('lewishamilton@gmail.com', '12345678');
-  console.log(result);
+const deleteMe = async ({ authorization }) => {
+  try {
+    const auth = jwt.decript(authorization);
+    const data = await User.findOne({ where: { email: auth.email } });
+    await User.destroy({ where: { id: data.id } });
+    return 'OK';
+  } catch (err) {
+    return null;
+  }
 };
-testFX(); */
 
 module.exports = {
   getAllUsers,
   getById,
   checkCredentialsUser,
   addUser,
+  deleteMe,
 };
