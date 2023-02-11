@@ -21,13 +21,13 @@ route.post('/',
   postControler.addPost);
 
 route.put('/:id',
-/*   midd.token,
-  midd.validTitlePost,
-  midd.validContentPost, */
+  /*   midd.token,
+    midd.validTitlePost,
+    midd.validContentPost, */
   postControler.setPostById);
 
-/* route.delete('/:id',
-  // midd.token,
-  postControler.deletePostById); */
+route.delete('/:id',
+  midd.token,
+  postControler.deletePostById);
 
 module.exports = route;

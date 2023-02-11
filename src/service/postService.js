@@ -1,8 +1,6 @@
-// const { Op } = require('sequelize');
 const snakeize = require('snakeize');
-const { BlogPost, User, Category, PostCategory } = require('../models');
+const { BlogPost, User, Category, PostCategory, Sequelize } = require('../models');
 
-// trabalhando aqui
 const addPost = async (email, obj) => {
   const user = await User.findOne({ where: { email } });
   let allCategoryes = await Category.findAll();
@@ -52,18 +50,37 @@ const getPostById = async (idNumber) => {
   }
 };
 
-/* const delPost = async (idNumber) => {
-  const data = await BlogPost.findByPk(idNumber);
+const getPostByQuery = async (word) => {
+  try {
+    if (!word) return await getAllPost();
+    const data = await BlogPost.findAll(
+      { include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }] },
+      {
+        where: Sequelize.or(
+          { title: { [Sequelize.Op.like]: `%${word}%` } },
+          Sequelize.or({ content: { [Sequelize.Op.like]: `%${word}%` } }),
+        ),
+      },
+    );
 
-  if (!data) return { erro: 'Post Não Existe', status: false };
-  if (userId !== data.id) return { erro: 'Post de outro usuário', status: false };
+    return data;
+  } catch (err) {
+    return { error: true };
+  }
+};
+
+const delPost = async (idNumber, email) => {
+  const { id } = await User.findOne({ where: { email } });
+  const post = await BlogPost.findByPk(idNumber);
+  if (!post) return { message: 'Post does not exist', cod: 404 };
+  if (Number(id) !== Number(post.userId)) return { message: 'Unauthorized user', cod: 401 };
 
   try {
     await BlogPost.destroy({ where: { id: idNumber } });
-    return { status: true, message: 'deletado com sucesso' };
+    return { cod: 204 };
   } catch (err) {
-    return { status: false, erro: err.message };
+    return { cod: 500, message: 'internal server error' };
   }
-}; */
+};
 
-module.exports = { addPost, getAllPost, getPostById/* , delPost */ };
+module.exports = { addPost, getAllPost, getPostById, getPostByQuery, delPost };
