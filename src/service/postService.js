@@ -54,13 +54,14 @@ const getPostByQuery = async (word) => {
   try {
     if (!word) return await getAllPost();
     const data = await BlogPost.findAll(
-      { include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }] },
       {
         where: Sequelize.or(
           { title: { [Sequelize.Op.like]: `%${word}%` } },
           Sequelize.or({ content: { [Sequelize.Op.like]: `%${word}%` } }),
         ),
+        include: [{ model: User, as: 'user' }, { model: Category, as: 'categories' }],
       },
+      /* { }, */
     );
 
     return data;
