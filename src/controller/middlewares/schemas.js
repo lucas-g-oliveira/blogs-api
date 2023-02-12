@@ -19,7 +19,10 @@ const addPost = Joi.object().keys({
 });
 
 // PUT post
-const setPost = Joi.object().keys({});
+const setPost = Joi.object().keys({
+  title: Joi.string().min(8).required(),
+  content: Joi.string().min(8).required(),
+});
 
 // POST User
 const addUser = Joi.object().keys({

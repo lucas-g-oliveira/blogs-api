@@ -21,9 +21,8 @@ route.post('/',
   postControler.addPost);
 
 route.put('/:id',
-  /*   midd.token,
-    midd.validTitlePost,
-    midd.validContentPost, */
+  midd.token,
+  midd.setPost,
   postControler.setPostById);
 
 route.delete('/:id',

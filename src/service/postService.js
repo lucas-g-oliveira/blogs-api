@@ -1,4 +1,5 @@
 const snakeize = require('snakeize');
+const jwt = require('../jwtUtils');
 const { BlogPost, User, Category, PostCategory, Sequelize } = require('../models');
 
 const addPost = async (email, obj) => {
@@ -83,4 +84,23 @@ const delPost = async (idNumber, email) => {
   }
 };
 
-module.exports = { addPost, getAllPost, getPostById, getPostByQuery, delPost };
+const setPost = async (postId, feat, { authorization }) => {
+  const { title, content } = feat;
+  const auth = jwt.decript(authorization);
+  const { id } = await User.findOne({ where: { email: auth.email } });
+  const post = await BlogPost.findByPk(postId);
+  if (Number(id) !== Number(post.userId)) return { message: 'Unauthorized user', cod: 401 };
+
+  try {
+    await BlogPost.update(
+      { title, content },
+      { where: { id: postId } },
+    );
+    const updated = await getPostById(postId);
+    return updated;
+  } catch (err) {
+    return err;
+  }
+};
+
+module.exports = { addPost, getAllPost, getPostById, getPostByQuery, delPost, setPost };

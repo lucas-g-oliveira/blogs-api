@@ -37,8 +37,14 @@ const deletePostById = async (req, res) => {
   return res.status(data.cod).json({ message: data.message });
 };
 
-const setPostById = async (req, res) =>
-  res.status(200).json({ message: 'setPostById não implementadp' });
+const setPostById = async (req, res) => {
+  const { headers, body, params } = req;
+  const data = await BlogPost.setPost(params.id, body, headers);
+  if (!data.message) {
+    return res.status(200).json(data);
+  }
+  return res.status(401).json({ message: data.message });
+};
 
 module.exports = {
   getAllPost,

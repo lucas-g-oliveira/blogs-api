@@ -48,9 +48,12 @@ const addPost = (req, res, next) => {
 };
 
 const setPost = (req, res, next) => {
-  const { error } = schemas.setPost(req.body);
+  const { title, content } = req.body;
+  const hasInvalid = [title, content].some((e) => !e);
+  if (hasInvalid) return res.status(400).json({ message: 'Some required fields are missing' });
+  const { error } = schemas.setPost.validate(req.body);
   if (!error) return next();
-  return res.status(BAD_REQUEST).json({ message: error.message });
+  return res.status(BAD_REQUEST).json({ message: 'Some required fields are missing' });
 };
 
 const loginValidate = (req, res, next) => {
